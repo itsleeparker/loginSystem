@@ -1,0 +1,50 @@
+<%-include("partials/header.ejs"); %>
+	<div class="flex center fdata container">
+	<form class="flex center cols" id="rform" action="/fetch/" method="post">
+		<p class="text-center" id="err"></p>
+		<div class="form-container flex  rows">
+			<div>
+				<p>ID</p>
+			</div>
+			<div>
+				<input type="text" name="uid" value="<%user.uid%>" id="uid">
+			</div>
+		</div>
+		<div class="form-container  flex rows">
+			<div>
+				<p>Name</p>
+			</div>
+			<div>
+				<input type="text" value="<%user.name%>"  name="fname" id="fname">
+			</div>
+		</div>
+		<div class="form-container  flex rows">
+			<div>
+				<p>Last Name</p>
+			</div>
+			<div>
+				<input type="text" name="lname" value="<%user.lname%>" id="lname">
+			</div>
+		</div>
+		<div class="form-container flex rows">
+			<div>
+				<p>Mobile</p>
+			</div>
+			<div>
+				<input type="text" name="mobile" value="<%user.mob%>" id="mob">
+			</div>
+		</div>
+		<div class="form-container flex rows">
+			<div>
+				<p>Email</p>
+			</div>
+			<div>
+				<input type="email" name="email" value="<%user.umail%>" id="umail">
+			</div>
+		</div>
+		<div class="flex center">
+			<button class="btn btn-primary " type="submit">Next</button>
+		</div>
+	</form>	
+	</div>
+<%- include("partials/footer.ejs"); %>

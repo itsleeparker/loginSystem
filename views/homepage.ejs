@@ -1,0 +1,22 @@
+<%-include("partials/header.ejs"); %>
+	<div class="home-content">
+    <p class="text-center" id='err'></p>
+		
+    <form  action="/"  method="post" id='hform' class="frm">
+    <div class="form-floating">
+      <input type="text" class="form-control" name='uname' id="uname" placeholder="Username">
+      <label for="uname">UserName</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" name="pwd" class="form-control" id="pwd" placeholder="Password">
+      <label for="pwd">Password</label>
+    </div>
+    <button class="w-100 btn btn-lg btn-primary" name="btn"  value="login">Login
+    </button>
+  </form>
+  <form action="/" method="POST">
+      <button class="w-100 btn btn-lg btn-primary"  name="btn" value='sign'>Signin </button>
+      <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+  </form>
+	</div>
+<%-include("partials/footer.ejs"); %>

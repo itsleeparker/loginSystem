@@ -1,0 +1,26 @@
+<%-include("partials/header.ejs"); %>
+	<section class="user-container">
+	<nav>
+		<div class="img-container">
+			<img class='rd-img' src="" alt="">
+		</div>
+		<ul>
+			<li>
+				<p><a href="">Profile</a></p>
+			</li>
+			<li>
+				<p><a href="">Status</a></p>
+			</li>
+			<li>
+				<form action="/" method="post">
+					<button class="btn btn-primary">log out</button>
+				</form>
+			</li>
+		</ul>
+	</nav>
+	<div class="container">
+		<h1>Hello there <%= uname %></h1>
+
+	</div>		
+	</section>
+<%-include("partials/footer.ejs"); %>

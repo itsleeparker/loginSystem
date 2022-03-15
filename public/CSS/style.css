@@ -1,0 +1,140 @@
+* , *::before ,*::after{
+	margin: 0;
+	padding: 0;
+}
+
+html , 
+body{
+	height: 100%;
+	width: 100%;
+}
+
+body{
+	display: grid;
+	grid-auto-columns: 1fr;
+	grid-auto-rows: .5fr minmax(3fr , auto) .5fr;
+	grid-template-areas: "header"
+	                     "content" 
+	                     "footer";
+}
+
+.flex{
+	display: flex;
+}
+
+.rows{
+	flex-direction: row;
+}
+
+.cols{
+	flex-direction: column;
+}
+
+.center{
+	justify-self: center;
+}
+.center-ver{
+	align-items: center;
+}
+.text-center{
+	text-align: center;
+}
+
+#err{
+	color: red;
+	font-weight: 800;
+}
+
+body .home-content{
+	grid-area: content;
+	display: grid;
+	justify-content: center;
+	widows: 100%;
+}
+
+
+body .header{
+	grid-area: header;
+}
+
+body .footer{
+	grid-area: footer;
+}
+body .frm{
+	width: 35vw;
+	margin: 5em auto 0;
+}
+
+form input{
+	margin: 1% auto;
+}
+.frm button{
+	margin: 2% auto;	
+}
+
+/*REGISTRATION  PAGE*/
+.reg .btn{
+	width: 25%;
+	margin: 1.5% auto;
+}
+
+.fdata{
+	width: 100%;
+}
+.fdata form{
+	width: 100%;
+}
+
+.fdata form div{
+	margin: 0 auto;
+	width: 40%;
+}
+
+.fdata input{
+	margin: 2% auto;
+}
+
+
+.form-container{
+	width:100%;
+}
+
+.form-container div{
+	margin: 0 5%;
+}
+
+.add-data{
+	width: 100%;
+}
+
+#aform{
+	width: 100%;
+}
+#aform>div{
+	width: 50%;
+	margin: 2% auto;
+}
+
+#aform>div>div{
+	width: 15%;
+	margin: 1% auto;
+}
+
+#aform button{
+	margin: 2% 35%;
+}
+
+.user-container{
+	display: grid;
+	grid-auto-columns: .5fr 1fr;
+	grid-template-areas: "nav content";
+	width: 100%;
+}
+
+.user-container nav{
+	grid-area: nav;
+}
+
+.user-container .container{
+	grid-area: content;
+} 
