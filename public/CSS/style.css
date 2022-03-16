@@ -49,7 +49,7 @@ a{
 	text-align: center;
 }
 
-#err{
+#err , .err{
 	color: red;
 	font-weight: 800;
 }

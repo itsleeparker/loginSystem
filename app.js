@@ -1,17 +1,39 @@
 const express  = require('express');
 const bodyParser = require('body-parser');
 const ejs  = require('ejs');
+const mongoose = require('mongoose');
 const app =express();
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended : true}));
 app.set('view engine' , 'ejs');
 
+//////////////////DATABASE HANDLING////////////
+mongoose.connect('mongodb://localhost:27017/loginDB');
+
+const additionalSchema = {
+	dob :Date,
+	address : String
+}
+
+const userSchema = {
+	uid    : String,
+	uname  : String,
+	lname  : String,
+	mobile : String,
+	email  : String,
+	pwd    : String,
+	add    : {
+		additionalSchema
+	}
+}
+
+const Users = new mongoose.model('userData' , userSchema);
 //////////////////route handling///////////////
 app.route('/')
 
 .get((req , res)=>{
-	res.render('homepage');
+	res.render('homepage' , {errmsg : ""});
 })
 
 .post((req ,res)=>{
@@ -21,27 +43,40 @@ app.route('/')
 	if(btn == 'sign'){
 		res.redirect('/register');
 	}else{
-		//write code here to take user to user dashboard
-		res.redirect('/');
+		Users.findOne({uid : uname} , (err , results)=>{
+			if(results){
+				if(results.pwd == pwd){
+					res.redirect('/users/'+results._id);
+				}else{
+					res.render("homepage" , {errmsg : "Wrong Password"})
+				}
+			}else{
+				res.render("homepage" , {errmsg : "User not found"});
+			}
+		})
 	}
 });
 
 //////////////////REGISTER ROUTE///////////////
 app.route('/register')
 .get((req  , res)=>{
-	res.render('register');
+	res.render('register' , {errmsg : ""});
 })
 .post((req , res)=>{
 	const uid = req.body.uid;
+	const pwd = req.body.pwd;
 	const btn  = req.body.btn;
-	user = {
-		name: "Lee"
-	};
 	if(btn == 'skip'){
 		res.redirect('/fetch/ ');
 	}
 	else{
-		// write code for searching the user and sending the user id
+		Users.findOne({uid :uid} , (err , results)=>{
+			if(results){
+				res.redirect("/additional/"+results._id);
+			}else{
+				res.redirect("resgister" , {errmsg : "User not found"});
+			}
+		})
 	}
 })
 
@@ -49,41 +84,80 @@ app.route('/register')
 app.route('/fetch/:user')
 .get((req , res)=>{
 	const userData  = req.params.user;
-	res.render("fetch" , {user : userData});
+	res.render("fetch" , {user : userData , errmsg : ''});
 })
 app.post('/fetch',(req , res)=>{
-	const fname = req.body.fname;
-	const lname  = req.body.lname;
-	const mob = req.body.mobile;
-	const mail = req.body.email;
-	console.log(fname + " " + lname + " "  +mob +" " + mail);
-	//write code here to register the data on database 
-	res.redirect('/additional/'+fname);
+	//check if username already exisist
+	Users.findOne(
+		{uid : req.body.uid }, 
+		(err , results)=>{
+		if(results){
+			res.render('fetch' , 
+				{
+					user : results  ,
+					errmsg : "User Already exists"
+				});
+		}else{
+			const newUser = new Users({
+			uid    : req.body.uid,
+			uname  : req.body.fname,
+			lname  : req.body.lname,
+			mobile : req.body.mobile,
+			email  : req.body.email,
+			pwd    : req.body.pwd
+			});
+			newUser.save(err=>{
+				if(!err){
+				   res.redirect('/additional/'+newUser._id);
+				}else{
+					res.send("Something went wrong");
+				}
+			});
+		}
+	})
+
+
 })
 
 
 app.route('/additional/:user')
 .get((req , res)=>{
 	const user  = req.params.user;
-	res.render("additional" , {
-		uname : user
-	});
-})
+	Users.findById(user  , (err , results)=>{
+		if(results){
+ 		  res.render("additional" , {
+		   uname : results.uname , 
+		   id : results._id
+	      });
+		}
+	})
 
+})
 .post((req , res)=>{
 	const user = req.body.uid;
-	console.log(user);
-	//write code for uploading registered data here and fetch the user id
-	res.redirect('/users/'+user);
+	Users.findById(user , (err , results)=>{
+		if(results){
+			res.redirect('/users/'+results._id);
+		}else{
+			res.send("Something Went Wrong 1");
+		}
+	})
+
 })
 
 ///////////////USER DYNAMIC ROUTE///////////////
 
 app.route('/users/:uid')
-
 .get((req , res)=>{
 	const uid = req.params.uid;
-	res.render('users' , {uname : uid});
+	Users.findById(uid, (err , results)=>{
+		if(results){
+			res.render("users" , {user : results});
+		}else{
+			res.send("Something went wrong");
+		}
+	})
+	
 })
 
 ////////////////PORT HANDLING///////////////////

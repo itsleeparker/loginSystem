@@ -1,21 +1,23 @@
 <%-include("partials/header.ejs"); %>
 	<div class="flex center fdata container">
 	<form class="flex center cols" id="rform" action="/fetch/" method="post">
-		<p class="text-center" id="err"></p>
-		<div class="form-container flex  rows">
+		<p class="text-center" id="err"></p>				
+		<p class="text-center"><%=errmsg%></p>
+		<div class="form-container flex rows" >	
 			<div>
-				<p>ID</p>
+				<p>userID</p>
 			</div>
 			<div>
-				<input type="text" name="uid" value="<%user.uid%>" id="uid">
+
+				<input type="text" value="<%user.uid%>"  name="uid" id="uid">
 			</div>
 		</div>
-		<div class="form-container  flex rows">
+		<div class="form-container flex rows" >	
 			<div>
 				<p>Name</p>
 			</div>
 			<div>
-				<input type="text" value="<%user.name%>"  name="fname" id="fname">
+				<input type="text" value="<%user.uname%>"  name="fname" id="fname">
 			</div>
 		</div>
 		<div class="form-container  flex rows">
@@ -31,7 +33,7 @@
 				<p>Mobile</p>
 			</div>
 			<div>
-				<input type="text" name="mobile" value="<%user.mob%>" id="mob">
+				<input type="text" name="mobile" value="<%user.mobile%>" id="mob">
 			</div>
 		</div>
 		<div class="form-container flex rows">
@@ -39,7 +41,15 @@
 				<p>Email</p>
 			</div>
 			<div>
-				<input type="email" name="email" value="<%user.umail%>" id="umail">
+				<input type="email" name="email" value="<%user.email%>" id="umail">
+			</div>
+		</div>
+		<div class="form-container flex rows">
+			<div>
+				<p>Password</p>
+			</div>
+			<div>
+				<input type="password" name="pwd" value="<%user.pwd%>" id="umail">
 			</div>
 		</div>
 		<div class="flex center">
