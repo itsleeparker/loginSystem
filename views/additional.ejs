@@ -1,7 +1,8 @@
 <%-include("partials/header.ejs"); %>
 	<section class="add-data">
-		<h1 class="text-center">Hello there <%=user.name %></h1>
+		<h1 class="text-center" >Hello there <%=uname%></h1>
 		<form action="additional" class="flex center cols" id="aform" method="post">
+		<p class="text-center" id="err"></p>
 		<div class="flex center ">
 			<div><p >Add your profile pic</p></div>
 			<div><input type="file" accept="images/*" name="pic" id="pic"></div>
@@ -10,11 +11,11 @@
 			<div><p >Date of birth</p></div>
 			<div><input type="date" name="dob"></div>
 		</div>
-		<div class="flex center ">
+		<!----<div class="flex center ">
 			<div><p >Home Address</p></div>
 			<div><textarea name="address" id="add" cols="25" rows="5"></textarea></div>
-		</div>
-
+		</div>---->
+		<input type="hidden" value="<%=uname%>" name="uid">
 		<button class="btn btn-primary">Finish</button>			
 		</form>
 

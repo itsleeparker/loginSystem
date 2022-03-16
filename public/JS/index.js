@@ -8,17 +8,22 @@ $('#hform').submit((fr)=>{
 	}
 	
 })
-
-$('#rform').submit((e)=>{
-	let elements = [];
-	$('#rform input').each((i , e)=>{
-		elements.push($(e).val());
-	});
+const formSelection = (form)=>{
+	$(form).submit((e)=>{
+		let formID = $(form).attr("id"); 
+		let elements = [];
+		$("#"+formID+" input").each((i , e)=>{
+			elements.push($(e).val());
+		});
+		console.log(elements);
 	if(validateRegister(elements)){
 		$('#err').text('Fields cannot be empty');
 		e.preventDefault();
 	}
-})
+	})
+}
+
+formSelection($('#rform'));
 
 //validate form 2   takes an array of elements check if all of them are valid
 const validateRegister = (elements)=>{	

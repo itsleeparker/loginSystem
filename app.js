@@ -57,7 +57,6 @@ app.post('/fetch',(req , res)=>{
 	const mob = req.body.mobile;
 	const mail = req.body.email;
 	console.log(fname + " " + lname + " "  +mob +" " + mail);
-
 	//write code here to register the data on database 
 	res.redirect('/additional/'+fname);
 })
@@ -72,8 +71,10 @@ app.route('/additional/:user')
 })
 
 .post((req , res)=>{
+	const user = req.body.uid;
+	console.log(user);
 	//write code for uploading registered data here and fetch the user id
-	res.redirect('/user/'+'leeparker')
+	res.redirect('/users/'+user);
 })
 
 ///////////////USER DYNAMIC ROUTE///////////////
